@@ -1,0 +1,2465 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>علاء ثامن | alaatamen213</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;700;900&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0a0f;
+            --secondary: #12121a;
+            --accent: #e94560;
+            --gold: #c9a227;
+            --gold-light: #e8c547;
+            --text: #f0f0f5;
+            --text-muted: #8a8a9a;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --success: #00d9a5;
+            --warning: #ff9f43;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* خلفية متحركة */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, #0a0a0f 0%, #12121a 40%, #1a1a2e 100%);
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* شريط التنقل */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        nav.scrolled {
+            padding: 0.5rem 5%;
+            background: rgba(10, 10, 15, 0.98);
+        }
+
+        .logo {
+            font-family: 'Amiri', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--accent));
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+        }
+
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(201, 162, 39, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #ff6b6b);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(233, 69, 96, 0.4);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--primary);
+            border: none;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(201, 162, 39, 0.4);
+        }
+
+        /* القسم الرئيسي */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(233, 69, 96, 0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-family: 'Amiri', serif;
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease;
+            text-shadow: 0 0 30px rgba(201, 162, 39, 0.3);
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero-content .quote {
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            font-style: italic;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            animation: fadeInUp 1s ease 0.6s both;
+            padding: 1rem 2rem;
+            border-right: 3px solid var(--gold);
+            border-left: 3px solid var(--gold);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease 0.9s both;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* الأقسام */
+        section {
+            padding: 6rem 8%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Amiri', serif;
+            font-size: 2.8rem;
+            color: var(--gold);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--accent));
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 1rem auto 0;
+        }
+
+        /* البحث */
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(201, 162, 39, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        /* التصنيفات */
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.6rem 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--primary);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* شبكة المقالات */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .article-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold), var(--accent));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s;
+        }
+
+        .article-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(201, 162, 39, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .article-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary), #1a1a2e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, var(--card-bg));
+        }
+
+        .article-content {
+            padding: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .article-date {
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .article-category {
+            background: rgba(201, 162, 39, 0.2);
+            color: var(--gold);
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+
+        .article-card h3 {
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .article-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .article-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .action-btn:hover {
+            color: var(--accent);
+        }
+
+        .action-btn.liked {
+            color: var(--accent);
+        }
+
+        .action-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* قسم الخواطر */
+        .poems-section {
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 50%, var(--primary) 100%);
+        }
+
+        .poem-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+
+        .poem-card::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            font-family: 'Amiri', serif;
+            font-size: 8rem;
+            color: rgba(201, 162, 39, 0.1);
+            line-height: 1;
+        }
+
+        .poem-card:hover {
+            border-color: rgba(201, 162, 39, 0.3);
+            transform: translateX(-10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .poem-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .poem-header h3 {
+            font-family: 'Amiri', serif;
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .poem-type {
+            background: rgba(233, 69, 96, 0.2);
+            color: var(--accent);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+        }
+
+        .poem-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.2rem;
+            line-height: 2.5;
+            color: var(--text);
+            white-space: pre-line;
+            text-align: center;
+        }
+
+        .poem-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* قسم من أنا */
+        .about-section {
+            background: var(--secondary);
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image .img-frame {
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            padding: 5px;
+            position: relative;
+        }
+
+        .about-image .img-frame::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .about-image .img-inner {
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--gold);
+        }
+
+        .about-content h2 {
+            font-family: 'Amiri', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            color: var(--text-muted);
+            line-height: 2;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .about-stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .about-stat i {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .about-stat .number {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text);
+            display: block;
+        }
+
+        .about-stat .label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* التعليقات */
+        .comments-section {
+            background: var(--primary);
+        }
+
+        .comment-form {
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .comment-form h3 {
+            font-family: 'Amiri', serif;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(201, 162, 39, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .comments-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .comment {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+
+        .comment:hover {
+            border-color: rgba(201, 162, 39, 0.2);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .comment-author {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .comment-name {
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .comment-date {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .comment-text {
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        /* نموذج تسجيل الدخول */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal {
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--accent);
+        }
+
+        .modal h2 {
+            font-family: 'Amiri', serif;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .modal .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .modal .btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 1rem;
+            padding: 1rem;
+        }
+
+        .modal-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .modal-footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* لوحة التحكم */
+        .dashboard {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100vh;
+            background: var(--secondary);
+            border-left: 1px solid var(--border);
+            z-index: 1500;
+            padding: 2rem;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.4s;
+        }
+
+        .dashboard.active {
+            transform: translateX(0);
+        }
+
+        .dashboard-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1400;
+            display: none;
+        }
+
+        .dashboard-overlay.active {
+            display: block;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dashboard-header h2 {
+            font-family: 'Amiri', serif;
+            color: var(--gold);
+        }
+
+        .dashboard-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .dashboard-menu {
+            list-style: none;
+        }
+
+        .dashboard-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .dashboard-menu a:hover, .dashboard-menu a.active {
+            background: var(--card-bg);
+            color: var(--gold);
+        }
+
+        .dashboard-menu i {
+            width: 20px;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .dash-stat {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .dash-stat .number {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        .dash-stat .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* التذييل */
+        footer {
+            background: var(--secondary);
+            padding: 4rem 8% 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Amiri', serif;
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .footer-links h4 {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--primary);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* للجوال */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            section {
+                padding: 4rem 5%;
+            }
+            
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .about-image {
+                display: flex;
+                justify-content: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+            
+            .hero-stats {
+                gap: 1.5rem;
+            }
+        }
+
+        /* شريط التمرير */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-light);
+        }
+
+        /* تأثيرات إضافية */
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px rgba(201, 162, 39, 0.2);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(201, 162, 39, 0.4);
+            }
+        }
+
+        .typing-effect::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* إشعار */
+        .toast {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: var(--secondary);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.4s;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast.error {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .toast.success {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        /* زر العائم */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--primary);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(201, 162, 39, 0.4);
+            z-index: 100;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        /* صفحة المقال الكامل */
+        .article-full {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .article-full.active {
+            display: block;
+        }
+
+        .article-full h1 {
+            font-family: 'Amiri', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .article-full .meta {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .article-full .content {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: var(--text);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: gap 0.3s;
+        }
+
+        .back-btn:hover {
+            gap: 1rem;
+        }
+
+        /* مشاركة اجتماعية */
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .share-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+
+        .share-btn:hover {
+            background: var(--gold);
+            color: var(--primary);
+            border-color: var(--gold);
+        }
+
+        /* لوحة النشر */
+        .publish-panel {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .publish-panel.active {
+            display: block;
+        }
+
+        .publish-panel h2 {
+            font-family: 'Amiri', serif;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .editor-toolbar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+        }
+
+        .editor-toolbar button {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .editor-toolbar button:hover {
+            background: var(--gold);
+            color: var(--primary);
+        }
+
+        /* تبديل اللغة */
+        .lang-switch {
+            position: fixed;
+            top: 100px;
+            left: 2rem;
+            z-index: 100;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 0.3rem;
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        .lang-btn {
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            border: none;
+            background: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background: var(--gold);
+            color: var(--primary);
+        }
+
+        /* قائمة الجوال */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .lang-switch {
+                top: 80px;
+                left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- إشعارات -->
+    <div class="toast" id="toast">
+        <i class="fas fa-info-circle"></i>
+        <span id="toast-message">رسالة</span>
+    </div>
+
+    <!-- تبديل اللغة -->
+    <div class="lang-switch">
+        <button class="lang-btn active" onclick="switchLang('ar')" data-lang="ar">العربية</button>
+        <button class="lang-btn" onclick="switchLang('en')" data-lang="en">English</button>
+    </div>
+
+    <!-- شريط التنقل -->
+    <nav id="navbar">
+        <a href="#" class="logo" onclick="showSection('home')">
+            <i class="fas fa-feather-alt"></i>
+            علاء ثامن
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="active" onclick="showSection('home')">الرئيسية</a></li>
+            <li><a href="#articles" onclick="showSection('articles')">المقالات</a></li>
+            <li><a href="#poems" onclick="showSection('poems')">الخواطر</a></li>
+            <li><a href="#about" onclick="showSection('about')">من أنا</a></li>
+            <li><a href="#contact" onclick="showSection('contact')">تواصل</a></li>
+        </ul>
+        <div class="auth-buttons" id="authButtons">
+            <button class="btn btn-outline" onclick="showModal('login')">
+                <i class="fas fa-sign-in-alt"></i>
+                تسجيل الدخول
+            </button>
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- القسم الرئيسي -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>علاء ثامن</h1>
+            <p class="subtitle typing-effect" id="typingText">كاتب و أديب</p>
+            <p class="quote">"الكلمة أقوى من السيف، والقلم أشدّ من الحديد"</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#articles" class="btn btn-primary" onclick="showSection('articles')">
+                    <i class="fas fa-book-open"></i>
+                    استكشف أعمالي
+                </a>
+                <a href="#about" class="btn btn-outline" onclick="showSection('about')">
+                    <i class="fas fa-user"></i>
+                    تعرف عليّ
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">مقال</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">30+</span>
+                    <span class="stat-label">خاطرة</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">روايات</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">قارئ</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المقالات -->
+    <section id="articles" style="display: none;">
+        <div class="section-header">
+            <h2 class="section-title">المقالات</h2>
+            <p class="section-desc">مقالات متنوعة في الأدب والفكر والحياة</p>
+        </div>
+
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="ابحث في المقالات..." id="searchInput" onkeyup="searchArticles()">
+        </div>
+
+        <div class="categories">
+            <button class="category-btn active" onclick="filterCategory('all')">الكل</button>
+            <button class="category-btn" onclick="filterCategory('literature')">أدب</button>
+            <button class="category-btn" onclick="filterCategory('thought')">فكر</button>
+            <button class="category-btn" onclick="filterCategory('life')">حياة</button>
+            <button class="category-btn" onclick="filterCategory('story')">قصص</button>
+        </div>
+
+        <div class="articles-grid" id="articlesGrid">
+            <!-- سيتم ملؤها بالJavaScript -->
+        </div>
+    </section>
+
+    <!-- قسم الخواطر -->
+    <section class="poems-section" id="poems" style="display: none;">
+        <div class="section-header">
+            <h2 class="section-title">الخواطر و الأشعار</h2>
+            <p class="section-desc">نبضات قلب وهمسات روح</p>
+        </div>
+
+        <div class="categories">
+            <button class="category-btn active" onclick="filterPoems('all')">الكل</button>
+            <button class="category-btn" onclick="filterPoems('poem')">شعر</button>
+            <button class="category-btn" onclick="filterPoems('thought')">خاطرة</button>
+            <button class="category-btn" onclick="filterPoems('story')">قصة قصيرة</button>
+        </div>
+
+        <div id="poemsContainer">
+            <!-- سيتم ملؤها بالJavaScript -->
+        </div>
+    </section>
+
+    <!-- قسم من أنا -->
+    <section class="about-section" id="about" style="display: none;">
+        <div class="section-header">
+            <h2 class="section-title">من أنا</h2>
+        </div>
+        <div class="about-container">
+            <div class="about-image">
+                <div class="img-frame">
+                    <div class="img-inner">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="about-content">
+                <h2>علاء ثامن</h2>
+                <p>
+                    كاتب و أديب أبحث عن الجمال في الكلمات، أؤمن بأن الأدب هو مرآة الروح ونافذة على العالم. 
+                    أكتب لأعبر، وأعبر لأعيش. منذ صغري كانت الكلمة صديقي الوحيد في ليالي الطويلة.
+                </p>
+                <p>
+                    أكتب في الأدب والفكر والحياة، أحاول أن ألمس القلوب بصدق الكلمة وجمال التعبير. 
+                    أؤمن بأن كل إنسان يحمل قصة تستحق أن تُروى، وكل روح تحمل موسيقى تستحق أن تُسمع.
+                </p>
+                <p>
+                    هذا الموقع هو بيتي الأدبي، حيث أضع بين يديكم ما خطّه قلمي وما نبض به فؤادي.
+                </p>
+                <div class="about-stats">
+                    <div class="about-stat">
+                        <i class="fas fa-book"></i>
+                        <span class="number">50+</span>
+                        <span class="label">مقال</span>
+                    </div>
+                    <div class="about-stat">
+                        <i class="fas fa-pen-fancy"></i>
+                        <span class="number">30+</span>
+                        <span class="label">خاطرة</span>
+                    </div>
+                    <div class="about-stat">
+                        <i class="fas fa-heart"></i>
+                        <span class="number">5K+</span>
+                        <span class="label">معجب</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التعليقات -->
+    <section class="comments-section" id="contact" style="display: none;">
+        <div class="section-header">
+            <h2 class="section-title">تواصل معي</h2>
+            <p class="section-desc">شاركني رأيك وانطباعاتك</p>
+        </div>
+
+        <div class="comment-form">
+            <h3><i class="fas fa-comment-dots"></i> أضف تعليقاً</h3>
+            <div class="form-group">
+                <label>الاسم</label>
+                <input type="text" id="commentName" placeholder="اسمك الكريم">
+            </div>
+            <div class="form-group">
+                <label>البريد الإلكتروني</label>
+                <input type="email" id="commentEmail" placeholder="بريدك الإلكتروني">
+            </div>
+            <div class="form-group">
+                <label>التعليق</label>
+                <textarea id="commentText" placeholder="اكتب تعليقك هنا..."></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="addComment()">
+                <i class="fas fa-paper-plane"></i>
+                إرسال التعليق
+            </button>
+        </div>
+
+        <div class="comments-list" id="commentsList">
+            <!-- سيتم ملؤها بالJavaScript -->
+        </div>
+    </section>
+
+    <!-- صفحة المقال الكامل -->
+    <section class="article-full" id="articleFull">
+        <a href="#" class="back-btn" onclick="showSection('articles')">
+            <i class="fas fa-arrow-right"></i>
+            العودة للمقالات
+        </a>
+        <h1 id="fullTitle">عنوان المقال</h1>
+        <div class="meta" id="fullMeta">
+            <span><i class="fas fa-calendar"></i> <span id="fullDate">التاريخ</span></span>
+            <span><i class="fas fa-folder"></i> <span id="fullCategory">التصنيف</span></span>
+            <span><i class="fas fa-eye"></i> <span id="fullViews">0</span> مشاهدة</span>
+        </div>
+        <div class="content" id="fullContent">
+            محتوى المقال...
+        </div>
+        <div class="share-buttons">
+            <button class="share-btn" onclick="share('twitter')">
+                <i class="fab fa-twitter"></i> تويتر
+            </button>
+            <button class="share-btn" onclick="share('facebook')">
+                <i class="fab fa-facebook"></i> فيسبوك
+            </button>
+            <button class="share-btn" onclick="share('whatsapp')">
+                <i class="fab fa-whatsapp"></i> واتساب
+            </button>
+            <button class="share-btn" onclick="copyLink()">
+                <i class="fas fa-link"></i> نسخ الرابط
+            </button>
+        </div>
+    </section>
+
+    <!-- لوحة النشر -->
+    <section class="publish-panel" id="publishPanel">
+        <h2><i class="fas fa-pen-nib"></i> نشر جديد</h2>
+        <div class="form-group">
+            <label>العنوان</label>
+            <input type="text" id="publishTitle" placeholder="عنوان المقال">
+        </div>
+        <div class="form-group">
+            <label>التصنيف</label>
+            <select id="publishCategory" style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: inherit;">
+                <option value="literature">أدب</option>
+                <option value="thought">فكر</option>
+                <option value="life">حياة</option>
+                <option value="story">قصة</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>المحتوى</label>
+            <div class="editor-toolbar">
+                <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                <button onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+            </div>
+            <textarea id="publishContent" placeholder="اكتب مقالك هنا..." style="min-height: 300px;"></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="publishArticle()">
+            <i class="fas fa-paper-plane"></i>
+            نشر
+        </button>
+    </section>
+
+    <!-- نموذج تسجيل الدخول -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('login')">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2><i class="fas fa-feather-alt"></i> تسجيل الدخول</h2>
+            <div class="form-group">
+                <label>البريد الإلكتروني</label>
+                <input type="email" id="loginEmail" placeholder="admin@alaatamen.com">
+            </div>
+            <div class="form-group">
+                <label>كلمة المرور</label>
+                <input type="password" id="loginPassword" placeholder="••••••••">
+            </div>
+            <button class="btn btn-primary" onclick="login()">
+                <i class="fas fa-sign-in-alt"></i>
+                دخول
+            </button>
+            <div class="modal-footer">
+                <p>للدخول كمسؤول: <strong>admin@alaatamen.com</strong> / <strong>admin123</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- لوحة التحكم -->
+    <div class="dashboard-overlay" id="dashboardOverlay" onclick="toggleDashboard()"></div>
+    <div class="dashboard" id="dashboard">
+        <div class="dashboard-header">
+            <h2><i class="fas fa-cog"></i> لوحة التحكم</h2>
+            <button class="dashboard-close" onclick="toggleDashboard()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="dashboard-stats">
+            <div class="dash-stat">
+                <div class="number" id="dashArticles">50</div>
+                <div class="label">مقال</div>
+            </div>
+            <div class="dash-stat">
+                <div class="number" id="dashPoems">30</div>
+                <div class="label">خاطرة</div>
+            </div>
+            <div class="dash-stat">
+                <div class="number" id="dashComments">120</div>
+                <div class="label">تعليق</div>
+            </div>
+            <div class="dash-stat">
+                <div class="number" id="dashViews">15K</div>
+                <div class="label">مشاهدة</div>
+            </div>
+        </div>
+
+        <ul class="dashboard-menu">
+            <li>
+                <a href="#" onclick="showPublishPanel()">
+                    <i class="fas fa-pen"></i>
+                    كتابة مقال جديد
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('articles'); toggleDashboard();">
+                    <i class="fas fa-book"></i>
+                    إدارة المقالات
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('poems'); toggleDashboard();">
+                    <i class="fas fa-feather"></i>
+                    إدارة الخواطر
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('contact'); toggleDashboard();">
+                    <i class="fas fa-comments"></i>
+                    التعليقات
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('about'); toggleDashboard();">
+                    <i class="fas fa-user"></i>
+                    تعديل "من أنا"
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    تسجيل الخروج
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- زر عائم -->
+    <button class="fab" onclick="scrollToTop()" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- التذييل -->
+    <footer id="mainFooter">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3><i class="fas fa-feather-alt"></i> علاء ثامن</h3>
+                <p>موقع أدبي يجمع بين الجمال والفكر، ننشر الكلمة الصادقة ونحتفي بالإبداع الإنساني.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>روابط سريعة</h4>
+                <ul>
+                    <li><a href="#" onclick="showSection('home')">الرئيسية</a></li>
+                    <li><a href="#" onclick="showSection('articles')">المقالات</a></li>
+                    <li><a href="#" onclick="showSection('poems')">الخواطر</a></li>
+                    <li><a href="#" onclick="showSection('about')">من أنا</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>التصنيفات</h4>
+                <ul>
+                    <li><a href="#">أدب</a></li>
+                    <li><a href="#">فكر</a></li>
+                    <li><a href="#">حياة</a></li>
+                    <li><a href="#">قصص</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>تواصل</h4>
+                <ul>
+                    <li><a href="#" onclick="showSection('contact')">اتصل بنا</a></li>
+                    <li><a href="#">سياسة الخصوصية</a></li>
+                    <li><a href="#">شروط الاستخدام</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 علاء ثامن | alaatamen213 - جميع الحقوق محفوظة</p>
+            <p style="margin-top: 0.5rem;">صُنع بحب ❤️ و حبر ✒️</p>
+        </div>
+    </footer>
+
+    <script>
+        // ==================== البيانات ====================
+        const articles = [
+            {
+                id: 1,
+                title: "في جماليات الكلمة",
+                category: "literature",
+                categoryName: "أدب",
+                date: "20 يونيو 2026",
+                excerpt: "الكلمة ليست مجرد رموز على الورق، بل هي نبض الحياة وروح الإنسان...",
+                content: "الكلمة ليست مجرد رموز على الورق، بل هي نبض الحياة وروح الإنسان. عندما نكتب، نخلق عالماً جديداً، نبني جسوراً بين القلوب، ونضيء شموعاً في ليالي الظلام.\n\nالأدب الحقيقي هو ذلك الذي يلمس الروح ويُحدث صدى في العمق. هو ليس ترفاً فكرياً، بل هو حاجة إنسانية ملحّة، كالهواء والماء.\n\nفي عالم يموج بالضجيج، تبقى الكلمة الصادقة ملاذاً آمناً للروح المتعبة. هي الصوت الذي يرتفع فوق الفوضى، والنور الذي يخترق الظلام.",
+                image: "✍️",
+                views: 1250,
+                likes: 89
+            },
+            {
+                id: 2,
+                title: "الفكر والحرية",
+                category: "thought",
+                categoryName: "فكر",
+                date: "18 يونيو 2026",
+                excerpt: "الحرية ليست غياب القيود، بل هي القدرة على التفكير بشكل مستقل...",
+                content: "الحرية ليست غياب القيود، بل هي القدرة على التفكير بشكل مستقل. الفكر الحر هو أساس كل تقدم إنساني، وهو الوقود الذي يدفع عجلة الحضارة.\n\nعندما نفكر بحرية، نتحرر من الأصفاد التي تكبل عقولنا. نرى العالم بعيون جديدة، ونكتشف إمكانيات لم نكن نعلم بوجودها.",
+                image: "🕊️",
+                views: 980,
+                likes: 76
+            },
+            {
+                id: 3,
+                title: "لحظات من الحياة",
+                category: "life",
+                categoryName: "حياة",
+                date: "15 يونيو 2026",
+                excerpt: "الحياة ليست طولاً، بل عمقاً. ليست عدد السنين، بل جودة اللحظات...",
+                content: "الحياة ليست طولاً، بل عمقاً. ليست عدد السنين، بل جودة اللحظات. كل لحظة نعيشها ب awareness كاملة هي كنز لا يُقدر بثمن.\n\nفي عالم يسابق الزمن، علينا أن نتعلم فن التوقف. أن ننظر حولنا، أن نستنشق عبير الورد، أن نستمع لصوت الريح. هذه اللحظات البسيطة هي جوهر الحياة.",
+                image: "🌅",
+                views: 1500,
+                likes: 112
+            },
+            {
+                id: 4,
+                title: "قصة: الضوء الأخير",
+                category: "story",
+                categoryName: "قصة",
+                date: "12 يونيو 2026",
+                excerpt: "في ليلة باردة من ليالي الشتاء، كان هناك رجل يجلس وحيداً عند نافذته...",
+                content: "في ليلة باردة من ليالي الشتاء، كان هناك رجل يجلس وحيداً عند نافذته. كان ينظر إلى الشارع الفارغ، يراقب قطرات المطر تنساب على الزجاج.\n\nفي تلك اللحظة، تذكر حلماً كان قد دفنه منذ سنوات. حلم أن يصبح كاتباً، أن يترك بصمة في هذا العالم. لكن الحياة أخذته في طريق آخر، ونسي حلمه بين أدراج الذاكرة.\n\nقرر في تلك الليلة أن يستعيد حلمه. أن يكتب، حتى وإن كان لنفسه فقط. وأخذ قلمه، وبدأ أول سطر...",
+                image: "📖",
+                views: 2100,
+                likes: 156
+            },
+            {
+                id: 5,
+                title: "الأدب والإنسانية",
+                category: "literature",
+                categoryName: "أدب",
+                date: "10 يونيو 2026",
+                excerpt: "الأدب هو أرقى تعبير عن إنسانية الإنسان. هو المرآة التي تعكس وجداننا...",
+                content: "الأدب هو أرقى تعبير عن إنسانية الإنسان. هو المرآة التي تعكس وجداننا، والجسر الذي يربط بين الثقافات والعصور.\n\nعندما نقرأ رواية عظيمة، نعيش حياة أخرى. نتعرف على أناس لم نلتقِ بهم، ونزور أماكن لم نطأها. هذا السحر هو ما يجعل الأدب immortality.",
+                image: "📚",
+                views: 890,
+                likes: 67
+            },
+            {
+                id: 6,
+                title: "فن الاستماع",
+                category: "thought",
+                categoryName: "فكر",
+                date: "8 يونيو 2026",
+                excerpt: "في عالم يتحدث فيه الجميع، أصبح فن الاستماع نادراً ومثمناً...",
+                content: "في عالم يتحدث فيه الجميع، أصبح فن الاستماع نادراً ومثمناً. الاستماع الحقيقي ليس مجرد سماع الأصوات، بل هو فن يتطلب حضوراً كاملاً وتفهماً عميقاً.\n\nعندما نستمع بصدق، نمنح الآخرين هدية لا تُقدر بثمن: الشعور بأنهم مهمون، بأن كلماتهم لها قيمة. هذا هو الأساس لكل علاقة إنسانية صحية.",
+                image: "👂",
+                views: 750,
+                likes: 54
+            }
+        ];
+
+        const poems = [
+            {
+                id: 1,
+                title: "في الحياة",
+                type: "thought",
+                typeName: "خاطرة",
+                text: "في رحلة العمر نسير\nو في دروب الأمل نصير\nكل يوم جديد فرصة\nلنكتب قصة لم تُكتب\n\nلا تيأس إن طال الليل\nفالفجر يأتي بعد الظلام\nو لا تحزن إن ضاقت الدنيا\nفبعد العسر يسرٌ قريب"
+            },
+            {
+                id: 2,
+                title: "عن الكتابة",
+                type: "poem",
+                typeName: "شعر",
+                text: "الكلمة نور في ظلام الليل\nو القلم سيف في يد البطل\nنكتب لنبقى، و نبقى لنكتب\nفالحبر أصدق من الزمن\n\nفي كل حرفٍ حكاية\nو في كل سطرٍ ذكرى\nنحفر أسماءنا في صفحات الدهر\nلكي لا يمحوها النسيان"
+            },
+            {
+                id: 3,
+                title: "الحلم",
+                type: "thought",
+                typeName: "خاطرة",
+                text: "الحلم هو الوقود الذي يدفعنا\nنحو المستحيل\nهو النور الذي يضيء\nدروب الظلام\n\nلا تدع أحداً يخطف حلمك\nفأنت صانع مستقبلك\nو كاتب قصتك"
+            },
+            {
+                id: 4,
+                title: "لحظة صمت",
+                type: "poem",
+                typeName: "شعر",
+                text: "في صمت الليل أسمع صوتي\nفي هدوء الروح أجد نفسي\n\nليس الصمت غياباً\nبل هو حضورٌ أعمق\nليس السكوت ضعفاً\nبل هو قوةٌ تتجلى\n\nفي لحظة الصمت\nتتكلم الروح"
+            },
+            {
+                id: 5,
+                title: "الطريق",
+                type: "story",
+                typeName: "قصة قصيرة",
+                text: "كان هناك طريقٌ طويل\nيمتد بين الجبال\nو يخترق الوادي\n\nسار عليه الكثيرون\nو تركوا آثاراً\nلمن يأتي بعدهم\n\nأنا سائرٌ على هذا الطريق\nأحمل قلمي وورقي\nأكتب ما أرى\nو أرى ما أكتب"
+            }
+        ];
+
+        let comments = [
+            {
+                id: 1,
+                name: "أحمد محمد",
+                email: "ahmed@example.com",
+                text: "موقع رائع! أحببت مقالاتك كثيراً، خاصة مقال 'في جماليات الكلمة'. تابع الإبداع!",
+                date: "21 يونيو 2026",
+                avatar: "أ"
+            },
+            {
+                id: 2,
+                name: "سارة علي",
+                email: "sara@example.com",
+                text: "خواطرك تلامس الروح. أشعر وكأنك تكتب عن ما يدور في داخلي. شكراً لمشاركة إبداعك معنا.",
+                date: "20 يونيو 2026",
+                avatar: "س"
+            },
+            {
+                id: 3,
+                name: "خالد عبدالله",
+                email: "khaled@example.com",
+                text: "تصميم الموقع فاخر جداً والمحتوى أجمل. أتمنى لك التوفيق في مشاريعك القادمة.",
+                date: "19 يونيو 2026",
+                avatar: "خ"
+            }
+        ];
+
+        let currentUser = null;
+        let currentLang = 'ar';
+
+        // ==================== التهيئة ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            renderArticles();
+            renderPoems();
+            renderComments();
+            startTypingEffect();
+            
+            // تأثير التمرير
+            window.addEventListener('scroll', function() {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                // زر العودة للأعلى
+                const scrollBtn = document.getElementById('scrollTop');
+                if (window.scrollY > 500) {
+                    scrollBtn.style.display = 'flex';
+                } else {
+                    scrollBtn.style.display = 'none';
+                }
+            });
+        });
+
+        // ==================== الجسيمات ====================
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                particle.style.width = (2 + Math.random() * 4) + 'px';
+                particle.style.height = particle.style.width;
+                container.appendChild(particle);
+            }
+        }
+
+        // ==================== التنقل ====================
+        function showSection(sectionId) {
+            // إخفاء جميع الأقسام
+            const sections = ['home', 'articles', 'poems', 'about', 'contact', 'articleFull', 'publishPanel'];
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    if (id === 'home') {
+                        el.style.display = sectionId === 'home' ? 'flex' : 'none';
+                    } else {
+                        el.style.display = sectionId === id ? 'block' : 'none';
+                    }
+                }
+            });
+
+            // تحديث الروابط النشطة
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + sectionId) {
+                    link.classList.add('active');
+                }
+            });
+
+            // التمرير للأعلى
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // إظهار/إخفاء التذييل
+            const footer = document.getElementById('mainFooter');
+            if (footer) {
+                footer.style.display = sectionId === 'articleFull' || sectionId === 'publishPanel' ? 'none' : 'block';
+            }
+        }
+
+        // ==================== المقالات ====================
+        function renderArticles(filter = 'all', search = '') {
+            const grid = document.getElementById('articlesGrid');
+            let filtered = articles;
+
+            if (filter !== 'all') {
+                filtered = filtered.filter(a => a.category === filter);
+            }
+
+            if (search) {
+                filtered = filtered.filter(a => 
+                    a.title.includes(search) || a.excerpt.includes(search)
+                );
+            }
+
+            grid.innerHTML = filtered.map(article => `
+                <div class="article-card" onclick="showArticle(${article.id})">
+                    <div class="article-image">${article.image}</div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-date">
+                                <i class="fas fa-calendar-alt"></i> ${article.date}
+                            </span>
+                            <span class="article-category">${article.categoryName}</span>
+                        </div>
+                        <h3>${article.title}</h3>
+                        <p>${article.excerpt}</p>
+                    </div>
+                    <div class="article-footer">
+                        <div class="article-actions">
+                            <button class="action-btn ${article.liked ? 'liked' : ''}" onclick="event.stopPropagation(); likeArticle(${article.id})">
+                                <i class="fas fa-heart"></i> ${article.likes}
+                            </button>
+                            <button class="action-btn" onclick="event.stopPropagation(); shareArticle(${article.id})">
+                                <i class="fas fa-share-alt"></i> مشاركة
+                            </button>
+                        </div>
+                        <span style="color: var(--text-muted); font-size: 0.85rem;">
+                            <i class="fas fa-eye"></i> ${article.views}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterCategory(category) {
+            document.querySelectorAll('.categories .category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderArticles(category, document.getElementById('searchInput').value);
+        }
+
+        function searchArticles() {
+            const search = document.getElementById('searchInput').value;
+            const activeCategory = document.querySelector('.categories .category-btn.active');
+            const category = activeCategory ? 'all' : 'all';
+            renderArticles('all', search);
+        }
+
+        function showArticle(id) {
+            const article = articles.find(a => a.id === id);
+            if (!article) return;
+
+            article.views++;
+            document.getElementById('fullTitle').textContent = article.title;
+            document.getElementById('fullDate').textContent = article.date;
+            document.getElementById('fullCategory').textContent = article.categoryName;
+            document.getElementById('fullViews').textContent = article.views;
+            document.getElementById('fullContent').innerHTML = article.content.replace(/\n/g, '<br><br>');
+
+            showSection('articleFull');
+        }
+
+        function likeArticle(id) {
+            const article = articles.find(a => a.id === id);
+            if (article) {
+                if (!article.liked) {
+                    article.likes++;
+                    article.liked = true;
+                    showToast('تم الإعجاب بالمقال! ❤️', 'success');
+                } else {
+                    article.likes--;
+                    article.liked = false;
+                }
+                renderArticles();
+            }
+        }
+
+        function shareArticle(id) {
+            const article = articles.find(a => a.id === id);
+            if (article) {
+                showToast(`تم نسخ رابط: ${article.title}`, 'success');
+            }
+        }
+
+        // ==================== الخواطر ====================
+        function renderPoems(filter = 'all') {
+            const container = document.getElementById('poemsContainer');
+            let filtered = poems;
+
+            if (filter !== 'all') {
+                filtered = filtered.filter(p => p.type === filter);
+            }
+
+            container.innerHTML = filtered.map(poem => `
+                <div class="poem-card">
+                    <div class="poem-header">
+                        <h3>${poem.title}</h3>
+                        <span class="poem-type">${poem.typeName}</span>
+                    </div>
+                    <div class="poem-text">${poem.text}</div>
+                    <div class="poem-footer">
+                        <div class="article-actions">
+                            <button class="action-btn" onclick="likePoem(${poem.id})">
+                                <i class="fas fa-heart"></i> إعجاب
+                            </button>
+                            <button class="action-btn" onclick="sharePoem(${poem.id})">
+                                <i class="fas fa-share-alt"></i> مشاركة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterPoems(type) {
+            document.querySelectorAll('#poems .categories .category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderPoems(type);
+        }
+
+        function likePoem(id) {
+            showToast('تم الإعجاب بالخاطرة! ❤️', 'success');
+        }
+
+        function sharePoem(id) {
+            const poem = poems.find(p => p.id === id);
+            if (poem) {
+                showToast(`تم نسخ: ${poem.title}`, 'success');
+            }
+        }
+
+        // ==================== التعليقات ====================
+        function renderComments() {
+            const list = document.getElementById('commentsList');
+            list.innerHTML = comments.map(comment => `
+                <div class="comment">
+                    <div class="comment-header">
+                        <div class="comment-author">
+                            <div class="comment-avatar">${comment.avatar}</div>
+                            <div>
+                                <div class="comment-name">${comment.name}</div>
+                                <div class="comment-date">${comment.date}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment-text">${comment.text}</div>
+                </div>
+            `).join('');
+        }
+
+        function addComment() {
+            const name = document.getElementById('commentName').value;
+            const email = document.getElementById('commentEmail').value;
+            const text = document.getElementById('commentText').value;
+
+            if (!name || !email || !text) {
+                showToast('يرجى ملء جميع الحقول', 'error');
+                return;
+            }
+
+            const newComment = {
+                id: comments.length + 1,
+                name: name,
+                email: email,
+                text: text,
+                date: new Date().toLocaleDateString('ar-SA'),
+                avatar: name.charAt(0)
+            };
+
+            comments.unshift(newComment);
+            renderComments();
+
+            // تفريغ الحقول
+            document.getElementById('commentName').value = '';
+            document.getElementById('commentEmail').value = '';
+            document.getElementById('commentText').value = '';
+
+            showToast('تم إضافة تعليقك بنجاح! 🎉', 'success');
+        }
+
+        // ==================== تسجيل الدخول ====================
+        function showModal(type) {
+            document.getElementById(type + 'Modal').classList.add('active');
+        }
+
+        function closeModal(type) {
+            document.getElementById(type + 'Modal').classList.remove('active');
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            // محاكاة تسجيل الدخول (في الواقع يجب ربط هذا بـ Backend)
+            if (email === 'admin@alaatamen.com' && password === 'admin123') {
+                currentUser = { name: 'علاء ثامن', email: email, role: 'admin' };
+                closeModal('login');
+                updateAuthUI();
+                showToast('مرحباً بك يا علاء! 👋', 'success');
+            } else {
+                showToast('بيانات الدخول غير صحيحة', 'error');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            updateAuthUI();
+            toggleDashboard();
+            showToast('تم تسجيل الخروج', 'success');
+        }
+
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            if (currentUser) {
+                authButtons.innerHTML = `
+                    <button class="btn btn-glow" onclick="toggleDashboard()" style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--primary);">
+                        <i class="fas fa-user-shield"></i>
+                        لوحة التحكم
+                    </button>
+                `;
+            } else {
+                authButtons.innerHTML = `
+                    <button class="btn btn-outline" onclick="showModal('login')">
+                        <i class="fas fa-sign-in-alt"></i>
+                        تسجيل الدخول
+                    </button>
+                `;
+            }
+        }
+
+        // ==================== لوحة التحكم ====================
+        function toggleDashboard() {
+            document.getElementById('dashboard').classList.toggle('active');
+            document.getElementById('dashboardOverlay').classList.toggle('active');
+        }
+
+        function showPublishPanel() {
+            toggleDashboard();
+            showSection('publishPanel');
+        }
+
+        function publishArticle() {
+            const title = document.getElementById('publishTitle').value;
+            const category = document.getElementById('publishCategory').value;
+            const content = document.getElementById('publishContent').value;
+
+            if (!title || !content) {
+                showToast('يرجى ملء العنوان والمحتوى', 'error');
+                return;
+            }
+
+            const categoryNames = {
+                literature: 'أدب',
+                thought: 'فكر',
+                life: 'حياة',
+                story: 'قصة'
+            };
+
+            const newArticle = {
+                id: articles.length + 1,
+                title: title,
+                category: category,
+                categoryName: categoryNames[category],
+                date: new Date().toLocaleDateString('ar-SA'),
+                excerpt: content.substring(0, 100) + '...',
+                content: content,
+                image: '✨',
+                views: 0,
+                likes: 0
+            };
+
+            articles.unshift(newArticle);
+            renderArticles();
+
+            // تفريغ الحقول
+            document.getElementById('publishTitle').value = '';
+            document.getElementById('publishContent').value = '';
+
+            showSection('articles');
+            showToast('تم نشر المقال بنجاح! 🎉', 'success');
+        }
+
+        function formatText(command) {
+            const textarea = document.getElementById('publishContent');
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const text = textarea.value;
+            const selected = text.substring(start, end);
+
+            let formatted = selected;
+            if (command === 'bold') formatted = `**${selected}**`;
+            if (command === 'italic') formatted = `*${selected}*`;
+            if (command === 'underline') formatted = `__${selected}__`;
+
+            textarea.value = text.substring(0, start) + formatted + text.substring(end);
+        }
+
+        // ==================== المشاركة ====================
+        function share(platform) {
+            const url = window.location.href;
+            const title = document.getElementById('fullTitle').textContent;
+
+            let shareUrl = '';
+            if (platform === 'twitter') {
+                shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
+            } else if (platform === 'facebook') {
+                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            } else if (platform === 'whatsapp') {
+                shareUrl = `https://wa.me/?text=${encodeURIComponent(title + ' ' + url)}`;
+            }
+
+            if (shareUrl) {
+                window.open(shareUrl, '_blank');
+            }
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+            showToast('تم نسخ الرابط! 📋', 'success');
+        }
+
+        // ==================== تبديل اللغة ====================
+        function switchLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            if (lang === 'en') {
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
+                showToast('Language switched to English', 'success');
+            } else {
+                document.documentElement.lang = 'ar';
+                document.documentElement.dir = 'rtl';
+                showToast('تم التبديل للعربية', 'success');
+            }
+        }
+
+        // ==================== مساعدات ====================
+        function showToast(message, type = '') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            
+            toast.className = 'toast ' + type;
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function startTypingEffect() {
+            const texts = ['كاتب و أديب', 'صانع كلمات', 'حالم بالحروف', 'عاشق للأدب'];
+            let index = 0;
+            const element = document.getElementById('typingText');
+
+            setInterval(() => {
+                index = (index + 1) % texts.length;
+                element.style.opacity = 0;
+                setTimeout(() => {
+                    element.textContent = texts[index];
+                    element.style.opacity = 1;
+                }, 300);
+            }, 3000);
+        }
+
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '100%';
+            navLinks.style.left = '0';
+            navLinks.style.right = '0';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.background = 'var(--secondary)';
+            navLinks.style.padding = '1rem';
+            navLinks.style.borderBottom = '1px solid var(--border)';
+        }
+
+        // إغلاق النماذج بالنقر خارجها
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+
+        // دعم مفتاح Enter في البحث
+        document.getElementById('searchInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchArticles();
+            }
+        });
+    </script>
+</body>
+</html>
